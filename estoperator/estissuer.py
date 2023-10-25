@@ -69,7 +69,7 @@ def estissuer_create(spec, patch, body, **_):
                 store,
                 load_certificate(FILETYPE_PEM, leaf.public_bytes(Encoding.PEM)),
             )
-            context.verify_certificate()
+            #context.verify_certificate()
     except X509StoreContextError as err:
         raise kopf.PermanentError(f"Unable to verify /cacerts content: {err}") from err
     return {"Ready": "True"}

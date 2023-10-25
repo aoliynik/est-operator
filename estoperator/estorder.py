@@ -55,10 +55,10 @@ def estorder_create(spec, patch, body, **_):
     else:
         path = path + "/simpleenroll"
         if secret is not None:
-        kwargs["auth"] = (
+          kwargs["auth"] = (
             base64.b64decode(secret.data["username"]).decode(),
             base64.b64decode(secret.data["password"]).decode(),
-        )
+          )
     # call portal API
     kopf.info(
         body,

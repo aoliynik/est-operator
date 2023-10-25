@@ -35,9 +35,9 @@ class SSLContextAdapter(requests.adapters.HTTPAdapter):
         context = requests.packages.urllib3.util.ssl_.create_urllib3_context(
             ssl.PROTOCOL_TLSv1_2
         )
-        context.verify_mode = ssl.CERT_REQUIRED
+        context.verify_mode = ssl.VERIFY_DEFAULT
         context.options = context.options | ssl.OP_NO_TLSv1_1 | ssl.OP_NO_TLSv1
-        context.check_hostname = True
+        context.check_hostname = False
         return super(SSLContextAdapter, self).init_poolmanager(
             *args, ssl_context=context, **kwargs
         )

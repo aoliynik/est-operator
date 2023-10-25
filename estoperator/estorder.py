@@ -79,7 +79,7 @@ def estorder_create(spec, patch, body, **_):
                     "Content-Type": "application/pkcs10",
                     "Content-Transfer-Encoding": "base64",
                 },
-                verify=cafile.name,
+                verify=False,
                 **kwargs,
             )
         except (requests.exceptions.SSLError, requests.RequestException) as err:

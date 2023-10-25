@@ -85,7 +85,10 @@ def get_issuer_from_resource(resource):
 
 def get_secret_from_resource(resource):
     """return secret of type tls or basic-auth from secretName or None"""
-    secretName = resource["spec"]["secretName"]
+    try:
+      secretName = resource["spec"]["secretName"]
+    except:
+      return None
     namespace = resource["metadata"].get("namespace")
     if not namespace and resource["kind"] == "EstClusterIssuer":
         namespace = os.getenv("CLUSTER_SCOPE_NAMESPACE", "est-operator")

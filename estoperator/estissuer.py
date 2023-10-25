@@ -44,7 +44,7 @@ def estissuer_create(spec, patch, body, **_):
         session = requests.Session()
         session.mount(baseUrl, SSLContextAdapter())
         try:
-            response = session.get(baseUrl + path, verify=False)
+            response = session.get(baseUrl + path, verify=cafile.name)
         except (
             requests.exceptions.SSLError,
             requests.exceptions.RequestException,

@@ -26,8 +26,6 @@ def estorder_create(spec, patch, body, **_):
     # gather resources
     issuer = get_issuer_from_resource(body)
     secret = get_secret_from_resource(issuer)
-    if secret is None:
-        raise kopf.TemporaryError(f"{spec['secretName']} not found")
     certreq = get_owner_by_kind(body, ["CertificateRequest"])
     # set parameters for enrollment
     cacert = base64.b64decode(issuer["spec"]["cacert"])
@@ -56,6 +54,7 @@ def estorder_create(spec, patch, body, **_):
         kwargs["cert"] = certfile.name
     else:
         path = path + "/simpleenroll"
+        if secret is not None:
         kwargs["auth"] = (
             base64.b64decode(secret.data["username"]).decode(),
             base64.b64decode(secret.data["password"]).decode(),

@@ -29,9 +29,6 @@ from estoperator.helpers import (GROUP, VERSION, WELLKNOWN, SSLContextAdapter,
 def estissuer_create(spec, patch, body, **_):
     """validate and mark issuers as ready"""
     # Secret must exist and be the correct type
-    secret = get_secret_from_resource(body)
-    if secret is None:
-        raise kopf.TemporaryError(f"{spec['secretName']} not found")
     baseUrl = f"https://{spec['host']}:{spec.get('port', 443)}"
     path = "/".join(
         i for i in [WELLKNOWN, spec.get("label"), "cacerts"] if i is not None
